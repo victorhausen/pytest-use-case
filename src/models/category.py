@@ -18,7 +18,7 @@ class Category(Base):
         self.description = description
 
     @validates("name") 
-    def validade_name(self, key, name: str) -> str:
+    def validate_name(self, key, name: str) -> str:
         if not isinstance(name, str):
             raise TypeError("Name must be String")
         if not name.strip():
