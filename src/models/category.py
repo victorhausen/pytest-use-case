@@ -25,8 +25,6 @@ class Category(Base):
             raise ValueError("Name can't be empty value")
         if len(name) > 50:
             raise ValueError("Name length us too large")
-        if re.search(r"\d", name):
-            raise ValueError("Numbers are not allowed in name.")
         return name
 
     @validates("description")
