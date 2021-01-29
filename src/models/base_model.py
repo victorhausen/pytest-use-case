@@ -7,9 +7,3 @@ Base = declarative_base()
 class BaseModel(Base):
     __abstract__ = True
     id_ = Column("ID", Integer, nullable=False, primary_key=True)
-    
-    @validates("id_")
-    def validate_id_(self, key, id_: str):
-        if not isinstance(id_, int) or isinstance(id_, None):
-            raise ValueError("Id must be int or none")
-        return id_

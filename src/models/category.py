@@ -1,29 +1,26 @@
-import re
-
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import validates
 
-from .base_model import BaseModel 
+Base = declarative_base()
 
-class Category(BaseModel):
+class Category(Base):
     __tablename__ = "CATEGORY"
     name = Column("NAME", String(length=50), nullable=False)
     description = Column("DESCRIPTION", String(length=300), nullable=False)
 
-    def __init__(self, name: str, description: str, id_: int = None):
+    def __init__(self, name: str, description: str):        
         self.name = name
         self.description = description
 
     @validates("name") 
-    def validade_name(self, key, name: str) -> str:
+    def validate_name(self, key, name: str) -> str:
         if not isinstance(name, str):
             raise TypeError("Name must be String")
         if not name.strip():
             raise ValueError("Name can't be empty value")
         if len(name) > 50:
             raise ValueError("Name length us too large")
-        if re.search(r"\d", name):
-            raise ValueError("Numbers are not allowed in name.")
         return name
 
     @validates("description")

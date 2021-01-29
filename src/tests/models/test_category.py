@@ -1,61 +1,45 @@
 import sys
 sys.path.append(".")
 
+import pytest
 from src.models.category import Category
 
+
 # TEST NAME
-def test_name_not_str():
-    try:
-        category = Category(10, "é um número, mas não era pra ser")
-        raise NotImplementedError("Exception not raised")
-    except Exception as error:
-        assert isinstance(error, TypeError)
+@pytest.mark.parametrize("name, description", [
+                            (10, 'é um número, mas não era pra ser'),
+                            (None, 'é um número, mas não era pra ser')
+                        ])
+def test_name_not_str(name, description):
+    with pytest.raises(TypeError):
+        category = Category(name, description)
 
 
 def test_name_length():
-    try:
-        too_large_name = "a"*100
-        category = Category(too_large_name, "é muito grande")
-        raise NotImplementedError("Exception not raised")
-    except Exception as error:
-        assert isinstance(error, ValueError)
+    with pytest.raises(ValueError):
+        category = Category("Name"*100, "é muito grande")
+ 
 
 def test_name_not_empty():
-    try:
+    with pytest.raises(ValueError):
         category = Category("", "valid description")
-        raise NotImplementedError("Exception not raised")
-    except Exception as error:
-        assert isinstance(error, ValueError)
-
-def test_numeric_in_name():
-    try:
-        category = Category("abc12", "valid description")
-        raise NotImplementedError("Exception not raised")
-    except Exception as error:
-        assert isinstance(error, ValueError)
 
 
 # TEST DESCRIPTION
-
-def test_description_not_str():
-    try:
-        category = Category("valid name", 10)
-        raise NotImplementedError("Exception not raised")
-    except Exception as error:
-        assert isinstance(error, TypeError)
+@pytest.mark.parametrize("name, description", [
+                            ("valid name", 10),
+                            ("valid name", None)
+                        ])
+def test_description_not_str(name, description):
+    with pytest.raises(TypeError):
+        category = Category(name, description)
 
 
 def test_description_length():
-    try:
-        too_large_description = "a"*400
-        category = Category("valid_name", too_large_description)
-        raise NotImplementedError("Exception not raised")
-    except Exception as error:
-        assert isinstance(error, ValueError)
+    with pytest.raises(ValueError):
+        category = Category("valid_name", "too large description"*300)
+
 
 def test_description_not_empty():
-    try:
+    with pytest.raises(ValueError):
         category = Category("valid name", " ")
-        raise NotImplementedError("Exception not raised")
-    except Exception as error:
-        assert isinstance(error, ValueError)
