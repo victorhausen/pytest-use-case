@@ -13,11 +13,3 @@ class BaseModel(Base):
         if isinstance(id_, int) or not id_:
             raise ValueError("Id must be int or none")
         return id_
-
-def wrap(fn):
-        fn.__sa_validators__ = names
-        fn.__sa_validation_opts__ = {
-            "include_removes": include_removes,
-            "include_backrefs": include_backrefs,
-        }
-        return fn
