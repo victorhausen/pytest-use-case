@@ -1,4 +1,6 @@
-from models.base_model import Base
+import sys
+sys.path.append('.')
+
 from src.models.category import Category
 from src.dao.base_dao import BaseDao
 

@@ -14,7 +14,7 @@ class Session:
     def __enter__(self):
         self.__engine = create_engine(self.__conn_string)
         session_maker = sessionmaker(self.__engine)
-        self.__session = session_maker
+        self.__session = session_maker()
 
         return self.__session
 
