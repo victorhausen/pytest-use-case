@@ -1,8 +1,8 @@
 from sqlalchemy import Column, String, Integer
-from sqlalchemy.orm import validates
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
+
 
 class BaseModel(Base):
     __abstract__ = True
