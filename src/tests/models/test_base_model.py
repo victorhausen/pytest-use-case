@@ -1,12 +1,14 @@
 import sys
 sys.path.append(".")
-
+import pytest
 from src.models.base_model import BaseModel
 
-def test_id_():
-    try:
-        base_model = BaseModel()
-        base_model.id_ = "a"
-        raise NotImplementedError("Exception not raised")
-    except Exception as error:
-        assert isinstance(error, ValueError)
+
+class TestBaseModel():
+    @pytest.fixture()
+    def create_instance(self):
+        obj = BaseModel()
+        return obj
+
+    def test_base_model(self, create_instance):
+        assert isinstance(create_instance, BaseModel)
