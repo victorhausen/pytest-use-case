@@ -1,5 +1,3 @@
-import re
-
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import validates
@@ -8,12 +6,10 @@ Base = declarative_base()
 
 class Category(Base):
     __tablename__ = "CATEGORY"
-    id_ = Column("ID", Integer, nullable=False, primary_key=True)
     name = Column("NAME", String(length=50), nullable=False)
     description = Column("DESCRIPTION", String(length=300), nullable=False)
 
-    def __init__(self, name: str, description: str, id_: int = None):
-        self.id_ = id_
+    def __init__(self, name: str, description: str):        
         self.name = name
         self.description = description
 
